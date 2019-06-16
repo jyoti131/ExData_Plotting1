@@ -1,0 +1,12 @@
+library(datasets)
+library(dplyr)
+HPC<-read.delim("household_power_consumption.txt",sep=";")
+HPC$Date<-as.Date(HPC$Date,format="%d/%m/%Y")
+
+HPC_Sub<-subset(HPC,HPC$Date =="2007-02-01"|HPC$Date =="2007-02-02" )
+head(HPC_Sub)
+HPC_Sub$datetime<-paste(HPC_Sub$Date,HPC_Sub$Time)
+head(HPC_Sub$datetime)
+png(filename="plot2.png",width=480,height=480)
+plot((as.POSIXct(HPC_Sub$datetime)),HPC_Sub$Global_active_power,type="l",main="",xlab="",ylab="Global Active pOwer(kilowatts)")
+dev.off()
